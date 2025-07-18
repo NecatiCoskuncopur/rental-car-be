@@ -5,6 +5,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { MongooseModule } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { envSchema } from './common/validations/env.validation';
+import { PostModule } from './post/post.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -37,6 +39,10 @@ import { envSchema } from './common/validations/env.validation';
       }),
       inject: [ConfigService],
     }),
+
+    PostModule,
+
+    AuthModule,
   ],
   controllers: [HealthController],
 })
