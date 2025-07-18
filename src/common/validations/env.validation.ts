@@ -19,4 +19,15 @@ export const envSchema = Joi.object({
     .messages({
       'string.pattern.base': `"MONGO_URI" must be a valid MongoDB connection string starting with "mongodb://" or "mongodb+srv://".`,
     }),
+  JWT_SECRET: Joi.string()
+    .pattern(
+      new RegExp(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-={}:;"\'<>,.?/\\\\|\\[\\]])[A-Za-z\\d!@#$%^&*()_+\\-={}:;"\'<>,.?/\\\\|\\[\\]]{10,}$',
+      ),
+    )
+    .required()
+    .label('JWT_SECRET')
+    .messages({
+      'string.pattern.base': `"JWT_SECRET" must contain at least one uppercase letter, one lowercase letter, one number, and one special character. Minimum length is 10 characters.`,
+    }),
 });
