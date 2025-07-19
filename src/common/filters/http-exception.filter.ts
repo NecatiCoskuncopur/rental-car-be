@@ -48,6 +48,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
         .keyValue;
       const field = Object.keys(keyValue)[0];
       message = `This ${field} is already used.`;
+    } else if (exception instanceof Error) {
+      message = exception.message;
     }
 
     res.status(status).json({
