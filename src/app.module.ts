@@ -8,6 +8,8 @@ import { envSchema } from './common/validations/env.validation';
 import { PostModule } from './post/post.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { FirebaseAdminModule } from './firebase-admin/firebase-admin.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -46,6 +48,10 @@ import { UserModule } from './user/user.module';
     AuthModule,
 
     UserModule,
+
+    FirebaseAdminModule,
+
+    UploadModule,
   ],
   controllers: [HealthController],
 })
