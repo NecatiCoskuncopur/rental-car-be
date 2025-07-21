@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UseGuards,
@@ -13,6 +14,7 @@ import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { CreatePostDto } from 'src/common/dto/create-post.dto';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { AdminGuard } from 'src/common/guards/admin.guard';
+import { UpdatePostDto } from 'src/common/dto/update-post.dto';
 
 @Controller('post')
 export class PostController {
@@ -32,6 +34,12 @@ export class PostController {
   @Post('createPost')
   async createPost(@Body() body: CreatePostDto) {
     return this.postService.createPost(body);
+  }
+
+  @UseGuards(AuthGuard, AdminGuard)
+  @Patch('updatePost/:id')
+  async updatePost(@Param('id') id: string, @Body() body: UpdatePostDto) {
+    return this.postService.updatePost(id, body);
   }
 
   @UseGuards(AuthGuard, AdminGuard)

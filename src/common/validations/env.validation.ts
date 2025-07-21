@@ -30,4 +30,16 @@ export const envSchema = Joi.object({
     .messages({
       'string.pattern.base': `"JWT_SECRET" must contain at least one uppercase letter, one lowercase letter, one number, and one special character. Minimum length is 10 characters.`,
     }),
+  FIREBASE_STORAGE_BUCKET: Joi.string()
+    .required()
+    .label('FIREBASE_STORAGE_BUCKET'),
+
+  FIREBASE_PROJECT_ID: Joi.string().required().label('FIREBASE_PROJECT_ID'),
+
+  FIREBASE_CLIENT_EMAIL: Joi.string()
+    .email()
+    .required()
+    .label('FIREBASE_CLIENT_EMAIL'),
+
+  FIREBASE_PRIVATE_KEY: Joi.string().required().label('FIREBASE_PRIVATE_KEY'),
 });

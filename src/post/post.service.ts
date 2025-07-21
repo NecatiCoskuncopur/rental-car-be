@@ -4,6 +4,9 @@ import { PostDocument } from './post.model';
 import { PaginateModel } from 'mongoose';
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { CreatePostDto } from 'src/common/dto/create-post.dto';
+import { deleteImageFromStorage } from 'src/common/utils/deketeImageFromStorage';
+import { UpdatePostDto } from 'src/common/dto/update-post.dto';
+import { pickAllowedKeys } from 'src/common/utils/object.util';
 
 @Injectable()
 export class PostService {
@@ -60,7 +63,39 @@ export class PostService {
     return newPost.save();
   }
 
-  //UpdatePost after image upload implementation
+  async updatePost(postId: string, data: UpdatePostDto) {
+    const allowedUpdates = ['title', 'content', 'image'];
+    const updates = pickAllowedKeys(data, allowedUpdates);
+
+    const post = await this.postModel.findById(postId);
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+    if (data.image && data.image !== post.image) {
+      await deleteImageFromStorage(post.image);
+    }
+
+    if (!data.image) {
+      delete updates.image;
+    }
+
+    if (typeof updates.title === 'string') {
+      updates.slug = updates.title
+        .split(' ')
+        .join('-')
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9-]/g, '');
+    }
+    const updatedPost = await this.postModel
+      .findByIdAndUpdate(
+        postId,
+        { $set: updates },
+        { new: true, runValidators: true },
+      )
+      .lean();
+
+    return updatedPost;
+  }
 
   async deletePost(id: string) {
     const post = await this.postModel.findById(id);
@@ -68,7 +103,9 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    // After image
+    if (post.image) {
+      await deleteImageFromStorage(post.image);
+    }
 
     await this.postModel.findByIdAndDelete(id);
     return { message: 'The post has been deleted' };
