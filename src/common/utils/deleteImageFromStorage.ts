@@ -5,7 +5,7 @@ export const deleteImageFromStorage = async (
   imageUrl: string,
 ): Promise<void> => {
   try {
-    const regex = /https:\/\/storage\.googleapis\.com\/[^/]+\/(.+)/;
+    const regex = /\/o\/(.+)/;
     const match = imageUrl.match(regex);
 
     if (!match || !match[1]) {

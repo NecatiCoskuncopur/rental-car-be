@@ -4,7 +4,7 @@ import { PostDocument } from './post.model';
 import { PaginateModel } from 'mongoose';
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { CreatePostDto } from 'src/common/dto/create-post.dto';
-import { deleteImageFromStorage } from 'src/common/utils/deketeImageFromStorage';
+import { deleteImageFromStorage } from 'src/common/utils/deleteImageFromStorage';
 import { UpdatePostDto } from 'src/common/dto/update-post.dto';
 import { pickAllowedKeys } from 'src/common/utils/object.util';
 
