@@ -7,16 +7,23 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { CreateVehicleDto } from 'src/common/dto/create-vehicle.dto';
 import { UpdateVehicleDto } from 'src/common/dto/update-vehicle.dto';
+import { VehicleQueryDto } from 'src/common/dto/vehicle-query.dto';
 
 @Controller('vehicle')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}
+
+  @Get('getVehicles')
+  getVehicles(@Query() query: VehicleQueryDto) {
+    return this.vehicleService.getVehicles(query);
+  }
 
   @Get('getVehicle/:id')
   async getVehicleById(@Param('id') id: string) {
