@@ -4,7 +4,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
-export type PostDocument = Post & Document;
+export type PostDocument = Post &
+  Document & {
+    createdAt: Date;
+    updatedAt: Date;
+  };
 
 function isValidURL(url: string): boolean {
   const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i;

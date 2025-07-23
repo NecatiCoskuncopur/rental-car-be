@@ -30,6 +30,16 @@ export class PostController {
     return this.postService.getPostBySlug(slug);
   }
 
+  @Get('getSlugs')
+  async getSlugs(): Promise<string[]> {
+    return this.postService.getSlugs();
+  }
+
+  @Get('getAdjacentPosts/:slug')
+  async getAdjacentPosts(@Param('slug') slug: string) {
+    return this.postService.getAdjacentPosts(slug);
+  }
+
   @UseGuards(AuthGuard, AdminGuard)
   @Post('createPost')
   async createPost(@Body() body: CreatePostDto) {

@@ -52,6 +52,30 @@ export class PostService {
     return post;
   }
 
+  async getSlugs(): Promise<string[]> {
+    const posts = await this.postModel.find({}, 'slug').exec();
+    return posts.map((post) => post.slug);
+  }
+
+  async getAdjacentPosts(slug: string) {
+    const currentPost = await this.postModel.findOne({ slug }).exec();
+    if (!currentPost) {
+      throw new NotFoundException('Post not found.');
+    }
+
+    const previousPost = await this.postModel
+      .findOne({ createdAt: { $lt: currentPost.createdAt } })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    const nextPost = await this.postModel
+      .findOne({ createdAt: { $gt: currentPost.createdAt } })
+      .sort({ createdAt: 1 })
+      .exec();
+
+    return { previousPost, nextPost };
+  }
+
   async createPost(body: CreatePostDto) {
     const slug = body.title
       .split(' ')
