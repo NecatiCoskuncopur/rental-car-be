@@ -1,7 +1,8 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { IncomeService } from './income.service';
-import { AuthGuard } from 'src/common/guards/auth.guard';
+
 import { AdminGuard } from 'src/common/guards/admin.guard';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { IncomeService } from './income.service';
 
 @Controller('income')
 export class IncomeController {

@@ -1,13 +1,14 @@
 import {
+  IsEnum,
+  IsNumber,
   IsOptional,
   IsString,
-  IsNumber,
-  IsEnum,
   IsUrl,
-  Min,
   Max,
+  Min,
 } from 'class-validator';
-import { VehicleType, TransmissionType, FuelType } from './create-vehicle.dto';
+
+import { FuelType, TransmissionType, VehicleType } from './create-vehicle.dto';
 
 export class UpdateVehicleDto {
   @IsOptional()

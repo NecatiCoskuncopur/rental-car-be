@@ -11,13 +11,14 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { BookingService } from './booking.service';
-import { AuthGuard } from 'src/common/guards/auth.guard';
-import { AdminGuard } from 'src/common/guards/admin.guard';
+import { Request, Response } from 'express';
+
 import { BookingQueryDto } from 'src/common/dto/booking-query.dto';
 import { CreateBookingDto } from 'src/common/dto/create-booking.dto';
-import { Request, Response } from 'express';
 import { UpdateBookingStatusDto } from 'src/common/dto/update-booking.dto';
+import { AdminGuard } from 'src/common/guards/admin.guard';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { BookingService } from './booking.service';
 
 @Controller('booking')
 export class BookingController {

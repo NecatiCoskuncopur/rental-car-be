@@ -9,12 +9,13 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { PostService } from './post.service';
-import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
+
 import { CreatePostDto } from 'src/common/dto/create-post.dto';
-import { AuthGuard } from 'src/common/guards/auth.guard';
-import { AdminGuard } from 'src/common/guards/admin.guard';
+import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { UpdatePostDto } from 'src/common/dto/update-post.dto';
+import { AdminGuard } from 'src/common/guards/admin.guard';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { PostService } from './post.service';
 
 @Controller('post')
 export class PostController {

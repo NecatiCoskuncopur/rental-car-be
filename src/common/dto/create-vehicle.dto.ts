@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsEnum, IsUrl, Min, Max } from 'class-validator';
+import { IsEnum, IsNumber, IsString, IsUrl, Max, Min } from 'class-validator';
 
 export enum VehicleType {
   Sedan = 'sedan',

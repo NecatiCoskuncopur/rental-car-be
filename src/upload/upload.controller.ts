@@ -1,4 +1,3 @@
-import { AuthGuard } from './../common/guards/auth.guard';
 import {
   Controller,
   Post,
@@ -6,9 +5,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { UploadService } from './upload.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+
 import { AdminGuard } from 'src/common/guards/admin.guard';
+import { AuthGuard } from 'src/common/guards/auth.guard';
+import { UploadService } from './upload.service';
 
 @Controller('upload')
 export class UploadController {

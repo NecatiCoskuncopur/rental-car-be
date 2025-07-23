@@ -1,4 +1,4 @@
-import { IsOptional, IsIn, IsNumberString } from 'class-validator';
+import { IsIn, IsNumberString, IsOptional } from 'class-validator';
 
 export class PaginateQueryDto {
   @IsOptional()

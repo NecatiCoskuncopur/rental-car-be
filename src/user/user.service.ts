@@ -5,13 +5,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as bcryptjs from 'bcryptjs';
 import { PaginateModel } from 'mongoose';
-import { UserDocument } from './user.model';
+
+import { BookingDocument } from 'src/booking/booking.model';
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/update-user.dto';
 import { pickAllowedKeys } from 'src/common/utils/object.util';
-import * as bcryptjs from 'bcryptjs';
-import { BookingDocument } from 'src/booking/booking.model';
+import { UserDocument } from './user.model';
 
 @Injectable()
 export class UserService {

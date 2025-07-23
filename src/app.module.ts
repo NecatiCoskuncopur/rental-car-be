@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HealthController } from './health/health.controller';
-import { ThrottlerModule } from '@nestjs/throttler';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
 import mongoose from 'mongoose';
-import { envSchema } from './common/validations/env.validation';
-import { PostModule } from './post/post.module';
+
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { FirebaseAdminModule } from './firebase-admin/firebase-admin.module';
-import { UploadModule } from './upload/upload.module';
-import { VehicleModule } from './vehicle/vehicle.module';
 import { BookingModule } from './booking/booking.module';
+import { envSchema } from './common/validations/env.validation';
+import { FirebaseAdminModule } from './firebase-admin/firebase-admin.module';
+import { HealthController } from './health/health.controller';
 import { IncomeModule } from './income/income.module';
+import { PostModule } from './post/post.module';
+import { UploadModule } from './upload/upload.module';
+import { UserModule } from './user/user.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
   imports: [

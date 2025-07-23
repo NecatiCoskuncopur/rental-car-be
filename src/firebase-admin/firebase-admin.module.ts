@@ -1,6 +1,6 @@
-import { Module, Global } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { initializeApp, cert, App, ServiceAccount } from 'firebase-admin/app';
+import { App, cert, initializeApp, ServiceAccount } from 'firebase-admin/app';
 import { getStorage } from 'firebase-admin/storage';
 
 @Global()

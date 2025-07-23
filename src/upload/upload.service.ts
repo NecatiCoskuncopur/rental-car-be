@@ -1,6 +1,6 @@
+import { Bucket } from '@google-cloud/storage';
 import { Inject, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-import { Bucket } from '@google-cloud/storage';
 
 @Injectable()
 export class UploadService {

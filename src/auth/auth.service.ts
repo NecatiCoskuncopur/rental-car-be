@@ -3,14 +3,15 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { PaginateModel } from 'mongoose';
-import { CreateUserDto } from 'src/common/dto/create-user.dto';
-import { UserDocument } from 'src/user/user.model';
-import * as bcryptjs from 'bcryptjs';
-import { LoginDto } from 'src/common/dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { InjectModel } from '@nestjs/mongoose';
+import * as bcryptjs from 'bcryptjs';
 import { Response } from 'express';
+import { PaginateModel } from 'mongoose';
+
+import { CreateUserDto } from 'src/common/dto/create-user.dto';
+import { LoginDto } from 'src/common/dto/login.dto';
+import { UserDocument } from 'src/user/user.model';
 
 @Injectable()
 export class AuthService {

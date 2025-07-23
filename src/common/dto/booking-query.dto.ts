@@ -1,4 +1,5 @@
-import { IsOptional, IsIn } from 'class-validator';
+import { IsIn, IsOptional } from 'class-validator';
+
 import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 
 export class BookingQueryDto extends PaginateQueryDto {

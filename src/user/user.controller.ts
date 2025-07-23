@@ -10,12 +10,13 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { Request } from 'express';
+
+import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
+import { UpdateUserDto } from 'src/common/dto/update-user.dto';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { UserService } from './user.service';
-import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
-import { UpdateUserDto } from 'src/common/dto/update-user.dto';
-import { Request } from 'express';
 
 @UseGuards(AuthGuard)
 @Controller('user')

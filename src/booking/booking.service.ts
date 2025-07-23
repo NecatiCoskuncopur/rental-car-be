@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, PaginateModel, Types } from 'mongoose';
-import { BookingDocument } from './booking.model';
 
 import { BookingQueryDto } from 'src/common/dto/booking-query.dto';
 import { CreateBookingDto } from 'src/common/dto/create-booking.dto';
 import { VehicleDocument } from 'src/vehicle/vehicle.model';
+import { BookingDocument } from './booking.model';
 
 @Injectable()
 export class BookingService {

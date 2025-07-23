@@ -5,12 +5,13 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AggregatePaginateModel, Model } from 'mongoose';
-import { VehicleDocument } from './vehicle.model';
+
 import { CreateVehicleDto } from 'src/common/dto/create-vehicle.dto';
-import { pickAllowedKeys } from 'src/common/utils/object.util';
 import { UpdateVehicleDto } from 'src/common/dto/update-vehicle.dto';
-import { deleteImageFromStorage } from 'src/common/utils/deleteImageFromStorage';
 import { VehicleQueryDto } from 'src/common/dto/vehicle-query.dto';
+import { deleteImageFromStorage } from 'src/common/utils/deleteImageFromStorage';
+import { pickAllowedKeys } from 'src/common/utils/object.util';
+import { VehicleDocument } from './vehicle.model';
 
 @Injectable()
 export class VehicleService {
