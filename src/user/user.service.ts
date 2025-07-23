@@ -11,12 +11,15 @@ import { PaginateQueryDto } from 'src/common/dto/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/update-user.dto';
 import { pickAllowedKeys } from 'src/common/utils/object.util';
 import * as bcryptjs from 'bcryptjs';
+import { BookingDocument } from 'src/booking/booking.model';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel('User')
     private readonly userModel: PaginateModel<UserDocument>,
+    @InjectModel('Booking')
+    private readonly bookingModel: PaginateModel<BookingDocument>,
   ) {}
 
   async getUsers(query: PaginateQueryDto) {
@@ -44,6 +47,33 @@ export class UserService {
     };
 
     return await this.userModel.paginate(queryConditions, options);
+  }
+
+  async getUserBookings(userId: string, query: PaginateQueryDto) {
+    const { page = 1, limit = 10, order = 'desc' } = query;
+    const queryConditions = { user: userId };
+
+    const options = {
+      page: Number(page),
+      limit: Number(limit),
+      sort: { updatedAt: order === 'asc' ? 1 : -1 },
+      populate: ['vehicle'],
+      lean: true,
+      customLabels: {
+        totalDocs: 'totalBookings',
+        docs: 'bookings',
+        limit: 'perPage',
+        page: 'currentPage',
+        totalPages: 'totalPages',
+        nextPage: 'next',
+        prevPage: 'prev',
+        pagingCounter: 'pageStartIndex',
+        hasPrevPage: 'hasPrev',
+        hasNextPage: 'hasNext',
+      },
+    };
+
+    return this.bookingModel.paginate(queryConditions, options);
   }
 
   async updateUser(userId: string, data: UpdateUserDto) {
@@ -95,5 +125,17 @@ export class UserService {
     return updatedUser;
   }
 
-  // Hard Delete - soft delete
+  async deleteUser(id: string, userId: string, isAdmin: boolean) {
+    const user = await this.userModel.findById(id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (String(id) !== String(userId) && !isAdmin) {
+      throw new ForbiddenException('You are not allowed to delete this user');
+    }
+
+    await this.userModel.findByIdAndDelete(id);
+    return { message: 'The user has been deleted' };
+  }
 }
