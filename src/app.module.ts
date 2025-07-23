@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { FirebaseAdminModule } from './firebase-admin/firebase-admin.module';
 import { UploadModule } from './upload/upload.module';
 import { VehicleModule } from './vehicle/vehicle.module';
+import { BookingModule } from './booking/booking.module';
 
 @Module({
   imports: [
@@ -55,6 +56,8 @@ import { VehicleModule } from './vehicle/vehicle.module';
     UploadModule,
 
     VehicleModule,
+
+    BookingModule,
   ],
   controllers: [HealthController],
 })
