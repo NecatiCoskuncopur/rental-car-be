@@ -5,6 +5,7 @@ import { VehicleSchema } from 'src/vehicle/vehicle.model';
 import { BookingController } from './booking.controller';
 import { BookingSchema } from './booking.model';
 import { BookingService } from './booking.service';
+import { BookingCronService } from './tasks/booking-cron.service';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { BookingService } from './booking.service';
       { name: 'Vehicle', schema: VehicleSchema },
     ]),
   ],
-  providers: [BookingService],
+  providers: [BookingService, BookingCronService],
   controllers: [BookingController],
 })
 export class BookingModule {}
