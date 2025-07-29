@@ -10,8 +10,8 @@ import { BookingModule } from './booking/booking.module';
 import { envSchema } from './common/validations/env.validation';
 import { FirebaseAdminModule } from './firebase-admin/firebase-admin.module';
 import { HealthController } from './health/health.controller';
-import { IncomeModule } from './income/income.module';
 import { PostModule } from './post/post.module';
+import { SummaryModule } from './summary/summary.module';
 import { UploadModule } from './upload/upload.module';
 import { UserModule } from './user/user.module';
 import { VehicleModule } from './vehicle/vehicle.module';
@@ -62,7 +62,7 @@ import { VehicleModule } from './vehicle/vehicle.module';
 
     BookingModule,
 
-    IncomeModule,
+    SummaryModule,
   ],
   controllers: [HealthController],
 })
