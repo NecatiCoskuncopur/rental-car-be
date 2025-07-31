@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { json } from 'express';
+import * as fs from 'fs';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
@@ -47,6 +48,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
+
+  const document = documentFactory();
+  fs.writeFileSync('./swagger-spec.json', JSON.stringify(document, null, 2));
   await app.listen(Number(process.env.PORT));
 }
 bootstrap();
