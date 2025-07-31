@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { json } from 'express';
 import helmet from 'helmet';
@@ -10,6 +11,26 @@ import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser());
+
+  const config = new DocumentBuilder()
+    .setTitle('Rental Car API')
+    .setDescription('API documentation for the Rental Car system')
+    .setVersion('1.0.0')
+    .build();
+
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory, {
+    customCss: `
+    .swagger-ui .opblock .opblock-summary-description {
+      background-color:#e74c3c;
+      color: white;
+      padding: 4px 6px;
+      font-weight: semi-bold;
+      border-radius: 4px;
+      margin-left: 24px;
+    }
+    `,
+  });
 
   const configService = app.get(ConfigService);
   const env = configService.get<string>('NODE_ENV');

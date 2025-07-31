@@ -24,7 +24,6 @@ export class Vehicle {
 
   @Prop({
     required: true,
-    unique: true,
     minlength: 2,
     maxlength: 50,
     validate: {
@@ -88,6 +87,19 @@ export class Vehicle {
     max: 35,
   })
   minAge: number;
+
+  @Prop({
+    required: true,
+    unique: true,
+    uppercase: true,
+    validate: {
+      validator: (v: string) =>
+        /^(0[1-9]|[1-7][0-9]|8[01])\s?[A-Z]{1,4}\s?\d{2,4}$/.test(v),
+      message:
+        'Plate number must be a valid Turkish license plate (e.g., 34 ABC 123)',
+    },
+  })
+  plateNumber: string;
 }
 
 const VehicleSchema = SchemaFactory.createForClass(Vehicle);

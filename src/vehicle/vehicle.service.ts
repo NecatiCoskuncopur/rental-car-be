@@ -160,6 +160,7 @@ export class VehicleService {
         'transmissionType',
         'fuelType',
         'minAge',
+        'plateNumber',
       ];
       const updates = pickAllowedKeys(data, allowedUpdates);
 

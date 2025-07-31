@@ -11,8 +11,10 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { ApiExtraModels } from '@nestjs/swagger';
 import { Request, Response } from 'express';
 
+import { ApiRoles } from 'src/common/decorators/api-role.decorator';
 import { BookingQueryDto } from 'src/common/dto/booking-query.dto';
 import { CreateBookingDto } from 'src/common/dto/create-booking.dto';
 import { UpdateBookingStatusDto } from 'src/common/dto/update-booking.dto';
@@ -20,16 +22,19 @@ import { AdminGuard } from 'src/common/guards/admin.guard';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { BookingService } from './booking.service';
 
+@ApiExtraModels(BookingQueryDto)
 @Controller('booking')
 export class BookingController {
   constructor(private readonly bookingService: BookingService) {}
 
+  @ApiRoles('admin')
   @UseGuards(AuthGuard, AdminGuard)
   @Get('getBookings')
   async getBookings(@Query() query: BookingQueryDto) {
     return this.bookingService.getAllBookings(query);
   }
 
+  @ApiRoles('user')
   @UseGuards(AuthGuard)
   @Post('createBooking')
   async createBooking(
@@ -56,6 +61,7 @@ export class BookingController {
     return savedBooking;
   }
 
+  @ApiRoles('user', 'admin')
   @UseGuards(AuthGuard)
   @Patch('updateBooking/:bookingId')
   async updateBooking(
