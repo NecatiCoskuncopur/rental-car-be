@@ -37,8 +37,9 @@ async function bootstrap() {
   const env = configService.get<string>('NODE_ENV');
   const origin =
     env === 'production'
-      ? configService.get<string>('CORS_ORIGINS') || '*'
-      : '*';
+      ? configService.get<string>('CORS_ORIGINS_PROD')
+      : configService.get<string>('CORS_ORIGINS_DEV');
+
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new AllExceptionsFilter());
   app.use(helmet());

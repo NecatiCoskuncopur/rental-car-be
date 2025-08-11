@@ -277,6 +277,21 @@
         ]
       }
     },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "AuthController_getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
     "/api/user/getUsers": {
       "get": {
         "operationId": "UserController_getUsers",

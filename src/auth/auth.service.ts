@@ -96,4 +96,12 @@ export class AuthService {
       throw new BadRequestException('Logout failed');
     }
   }
+
+  async getUserById(userId: string) {
+    const user = await this.userModel.findById(userId).lean();
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    return user;
+  }
 }
