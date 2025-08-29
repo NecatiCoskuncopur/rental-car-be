@@ -1,3 +1,4 @@
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -7,6 +8,7 @@ import * as fs from 'fs';
 import helmet from 'helmet';
 
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -53,6 +55,24 @@ async function bootstrap() {
 
   const document = documentFactory();
   fs.writeFileSync('./swagger-spec.json', JSON.stringify(document, null, 2));
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      exceptionFactory: (validationErrors = []) => {
+        const errors: Record<string, string> = {};
+        validationErrors.forEach((err) => {
+          if (err.constraints) {
+            errors[err.property] = Object.values(err.constraints)[0];
+          }
+        });
+        return new BadRequestException(errors);
+      },
+    }),
+  );
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   await app.listen(Number(process.env.PORT));
 }
