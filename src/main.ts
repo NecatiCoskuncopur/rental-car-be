@@ -62,10 +62,10 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
       transform: true,
       exceptionFactory: (validationErrors = []) => {
-        const errors: Record<string, string> = {};
+        const errors: Record<string, string[]> = {};
         validationErrors.forEach((err) => {
           if (err.constraints) {
-            errors[err.property] = Object.values(err.constraints)[0];
+            errors[err.property] = Object.values(err.constraints);
           }
         });
         return new BadRequestException(errors);

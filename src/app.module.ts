@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 
+import { AuthModule } from './auth/auth.module';
 import { envSchema } from './common/validations/env.validation';
 import { HealthController } from './health/health.controller';
 import { UserModule } from './user/user.module';
@@ -40,6 +41,7 @@ import { UserModule } from './user/user.module';
       inject: [ConfigService],
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [HealthController],
 })

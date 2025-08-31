@@ -14,6 +14,93 @@
           "Health"
         ]
       }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "AuthController_getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "Auth"
+        ]
+      }
     }
   },
   "info": {
@@ -25,6 +112,77 @@
   "tags": [],
   "servers": [],
   "components": {
-    "schemas": {}
+    "schemas": {
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User name",
+            "example": "John"
+          },
+          "surname": {
+            "type": "string",
+            "description": "User surname",
+            "example": "Doe"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "User date of birth",
+            "example": "1990-09-11"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "johndoe@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "P@ssw0rd123",
+            "minLength": 8,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "name",
+          "surname",
+          "dateOfBirth",
+          "email",
+          "password"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "johndoe@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "P@ssw0rd123"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "LogoutResponseDto": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User has been signed out"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
   }
 }
