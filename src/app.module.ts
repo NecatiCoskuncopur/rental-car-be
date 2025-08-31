@@ -4,6 +4,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 
 import { envSchema } from './common/validations/env.validation';
 import { HealthController } from './health/health.controller';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { HealthController } from './health/health.controller';
       envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
       validationSchema: envSchema,
     }),
+    UserModule,
   ],
   controllers: [HealthController],
 })
