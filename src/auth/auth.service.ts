@@ -78,15 +78,16 @@ export class AuthService {
 
     const { password: _, __v, ...userWithoutPassword } = user;
 
-    return plainToInstance(UserResponseDto, userWithoutPassword, {
-      excludeExtraneousValues: true,
+    return plainToInstance(UserResponseDto, {
+      ...userWithoutPassword,
+      _id: user._id,
     });
   }
 
   logout(res: Response): { message: string } {
     res.clearCookie('access_token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'none',
       path: '/',
     });
@@ -100,8 +101,6 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    return plainToInstance(UserResponseDto, user, {
-      excludeExtraneousValues: true,
-    });
+    return plainToInstance(UserResponseDto, user);
   }
 }
