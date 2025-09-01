@@ -11,7 +11,7 @@ import { PaginateModel } from 'mongoose';
 
 import { PaginateQueryDto } from 'src/common/dto/request/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/request/user-update.dto';
-import { DeleteUserResponseDto } from 'src/common/dto/response/delete-user-response.dto';
+import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { UserResponseDto } from 'src/common/dto/response/user-response.dto';
 import { UsersResponseDataDto } from 'src/common/dto/response/users-response.dto';
 import { pickAllowedKeys } from 'src/common/utils/pickAllowedKeys.util';
@@ -123,7 +123,7 @@ export class UserService {
     requesterId: string,
     userId: string,
     isAdmin: boolean,
-  ): Promise<DeleteUserResponseDto> {
+  ): Promise<DeleteResponseDto> {
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');

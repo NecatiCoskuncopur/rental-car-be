@@ -10,6 +10,7 @@
             "description": ""
           }
         },
+        "summary": "GUEST",
         "tags": [
           "Health"
         ]
@@ -214,6 +215,178 @@
         "summary": "USER",
         "tags": [
           "Auth"
+        ]
+      }
+    },
+    "/api/post/getPosts": {
+      "get": {
+        "operationId": "PostController_getAllPosts",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "schema": {
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Order direction: ascending  (asc) veya descending (desc)",
+            "schema": {
+              "example": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Post"
+        ]
+      }
+    },
+    "/api/post/getPost/{slug}": {
+      "get": {
+        "operationId": "PostController_getPostBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Post"
+        ]
+      }
+    },
+    "/api/post/getSlugs": {
+      "get": {
+        "operationId": "PostController_getSlugs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Post"
+        ]
+      }
+    },
+    "/api/post/createPost": {
+      "post": {
+        "operationId": "PostController_createPost",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePostDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Post"
+        ]
+      }
+    },
+    "/api/post/updatePost/{postId}": {
+      "patch": {
+        "operationId": "PostController_updatePost",
+        "parameters": [
+          {
+            "name": "postId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Post"
+        ]
+      }
+    },
+    "/api/post/deletePost/{postId}": {
+      "delete": {
+        "operationId": "PostController_deletePost",
+        "parameters": [
+          {
+            "name": "postId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Post"
         ]
       }
     }
@@ -449,6 +622,47 @@
         "required": [
           "message"
         ]
+      },
+      "CreatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Post title"
+          },
+          "content": {
+            "type": "string",
+            "description": "Post content"
+          },
+          "image": {
+            "type": "string",
+            "description": "Post image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          }
+        },
+        "required": [
+          "title",
+          "content",
+          "image"
+        ]
+      },
+      "UpdatePostDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Post title"
+          },
+          "content": {
+            "type": "string",
+            "description": "Post content"
+          },
+          "image": {
+            "type": "string",
+            "description": "Post image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          }
+        }
       }
     }
   }

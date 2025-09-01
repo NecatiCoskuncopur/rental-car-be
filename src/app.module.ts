@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import { AuthModule } from './auth/auth.module';
 import { envSchema } from './common/validations/env.validation';
 import { HealthController } from './health/health.controller';
+import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -42,6 +43,7 @@ import { UserModule } from './user/user.module';
     }),
     UserModule,
     AuthModule,
+    PostModule,
   ],
   controllers: [HealthController],
 })
