@@ -15,6 +15,121 @@
         ]
       }
     },
+    "/api/user/getUsers": {
+      "get": {
+        "operationId": "UserController_getUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "schema": {
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Order direction: ascending  (asc) veya descending (desc)",
+            "schema": {
+              "example": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsersResponseDataDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/updateUser/{userId}": {
+      "patch": {
+        "operationId": "UserController_updateUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/user/deleteUser/{userId}": {
+      "delete": {
+        "operationId": "UserController_deleteUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER - ADMIN",
+        "tags": [
+          "User"
+        ]
+      }
+    },
     "/api/auth/register": {
       "post": {
         "operationId": "AuthController_register",
@@ -113,6 +228,158 @@
   "servers": [],
   "components": {
     "schemas": {
+      "UserResponseDto": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "surname": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "surname",
+          "dateOfBirth",
+          "email",
+          "isAdmin",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "PaginationMetaDto": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "number",
+            "example": 10
+          },
+          "totalPages": {
+            "type": "number",
+            "example": 1
+          },
+          "currentPage": {
+            "type": "number",
+            "example": 1
+          },
+          "pageStartIndex": {
+            "type": "number",
+            "example": 1
+          },
+          "hasPrev": {
+            "type": "boolean",
+            "example": false
+          },
+          "hasNext": {
+            "type": "boolean",
+            "example": false
+          },
+          "prev": {
+            "type": "object",
+            "example": null,
+            "nullable": true
+          },
+          "next": {
+            "type": "object",
+            "example": null,
+            "nullable": true
+          }
+        },
+        "required": [
+          "perPage",
+          "totalPages",
+          "currentPage",
+          "pageStartIndex",
+          "hasPrev",
+          "hasNext",
+          "prev",
+          "next"
+        ]
+      },
+      "UsersResponseDataDto": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserResponseDto"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationMetaDto"
+          },
+          "totalUsers": {
+            "type": "number",
+            "example": 100
+          }
+        },
+        "required": [
+          "users",
+          "pagination",
+          "totalUsers"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User name",
+            "example": "John"
+          },
+          "surname": {
+            "type": "string",
+            "description": "User surname",
+            "example": "Doe"
+          },
+          "dateOfBirth": {
+            "format": "date-time",
+            "type": "string",
+            "description": "User date of birth",
+            "example": "11.09.1990"
+          },
+          "email": {
+            "type": "string",
+            "description": "User email",
+            "example": "johndoe@mail.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "User password",
+            "example": "P@ssw0rd123",
+            "minLength": 8,
+            "maxLength": 64
+          },
+          "oldPassword": {
+            "type": "string",
+            "description": "User old password",
+            "example": "P@ssw0rd123"
+          }
+        }
+      },
       "CreateUserDto": {
         "type": "object",
         "properties": {
