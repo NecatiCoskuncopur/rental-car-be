@@ -389,6 +389,48 @@
           "Post"
         ]
       }
+    },
+    "/api/upload": {
+      "post": {
+        "operationId": "UploadController_upload",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "vehicle",
+                      "post"
+                    ]
+                  }
+                },
+                "required": [
+                  "file",
+                  "type"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "File uploaded successfully"
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Upload"
+        ]
+      }
     }
   },
   "info": {
