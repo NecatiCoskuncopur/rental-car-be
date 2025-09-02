@@ -9,6 +9,7 @@ import { UpdatePostDto } from 'src/common/dto/request/update-post.dto';
 import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { PostResponseDto } from 'src/common/dto/response/post-response.dto';
 import { PostsResponseDto } from 'src/common/dto/response/posts-response.dto';
+import { deleteImageFromStorage } from 'src/common/utils/deleteImageFromStorage';
 import { pickAllowedKeys } from 'src/common/utils/pickAllowedKeys.util';
 import { PostDocument } from './post.model';
 
@@ -103,10 +104,9 @@ export class PostService {
       throw new NotFoundException('Post not found');
     }
 
-    //After image
-    // if (data.image && data.image !== post.image) {
-    //   await deleteImageFromStorage(post.image);
-    // }
+    if (data.image && data.image !== post.image) {
+      await deleteImageFromStorage(post.image);
+    }
 
     if (!data.image) {
       delete updates.image;
@@ -136,10 +136,9 @@ export class PostService {
     const post = await this.postModel.findByIdAndDelete(id);
     if (!post) throw new NotFoundException('Post not found');
 
-    //after image
-    // if (post.image) {
-    //   await deleteImageFromStorage(post.image);
-    // }
+    if (post.image) {
+      await deleteImageFromStorage(post.image);
+    }
 
     return { message: 'The post has been deleted' };
   }
