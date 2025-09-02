@@ -431,6 +431,113 @@
           "Upload"
         ]
       }
+    },
+    "/api/vehicle-template/getVehicle/{id}": {
+      "get": {
+        "operationId": "VehicleTemplateController_getVehicleTemplateById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "VehicleTemplate"
+        ]
+      }
+    },
+    "/api/vehicle-template/createVehicle": {
+      "post": {
+        "operationId": "VehicleTemplateController_createVehicleTemplate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVehicleTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "VehicleTemplate"
+        ]
+      }
+    },
+    "/api/vehicle-template/updateVehicle/{vehicleId}": {
+      "patch": {
+        "operationId": "VehicleTemplateController_updateVehicleTemplate",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVehicleTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "VehicleTemplate"
+        ]
+      }
+    },
+    "/api/vehicle-template/deleteVehicle/{vehicleId}": {
+      "delete": {
+        "operationId": "VehicleTemplateController_deleteVehicleTemplate",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "VehicleTemplate"
+        ]
+      }
     }
   },
   "info": {
@@ -703,6 +810,166 @@
             "type": "string",
             "description": "Post image url",
             "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          }
+        }
+      },
+      "CreateVehicleTemplateDto": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Vehicle Brand",
+            "examples": [
+              "Renault",
+              "Mercedes"
+            ]
+          },
+          "model": {
+            "type": "string",
+            "description": "Vehicle Model",
+            "examples": [
+              "Kadjar",
+              "C180"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "Post image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          },
+          "vehicleType": {
+            "type": "string",
+            "enum": [
+              "sedan",
+              "suv",
+              "hatchback",
+              "station vagon",
+              "mpv"
+            ],
+            "description": "Vehicle Type",
+            "examples": [
+              "suv",
+              "sedan"
+            ]
+          },
+          "doors": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 5,
+            "description": "Vehicle Doors",
+            "example": 4
+          },
+          "passengers": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 12,
+            "description": "Passenger",
+            "example": 5
+          },
+          "transmissionType": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ],
+            "description": "Transmission Type",
+            "example": "manual"
+          },
+          "fuelType": {
+            "type": "string",
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "hybrid"
+            ],
+            "description": "Fuel Type",
+            "example": "gasoline"
+          }
+        },
+        "required": [
+          "brand",
+          "model",
+          "image",
+          "vehicleType",
+          "doors",
+          "passengers",
+          "transmissionType",
+          "fuelType"
+        ]
+      },
+      "UpdateVehicleTemplateDto": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Vehicle Brand",
+            "examples": [
+              "Renault",
+              "Mercedes"
+            ]
+          },
+          "model": {
+            "type": "string",
+            "description": "Vehicle Model",
+            "examples": [
+              "Kadjar",
+              "C180"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "Post image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          },
+          "vehicleType": {
+            "type": "string",
+            "enum": [
+              "sedan",
+              "suv",
+              "hatchback",
+              "station vagon",
+              "mpv"
+            ],
+            "description": "Vehicle Type",
+            "examples": [
+              "suv",
+              "sedan"
+            ]
+          },
+          "doors": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 5,
+            "description": "Vehicle Doors",
+            "example": 4
+          },
+          "passengers": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 12,
+            "description": "Passenger",
+            "example": 5
+          },
+          "transmissionType": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ],
+            "description": "Transmission Type",
+            "example": "manual"
+          },
+          "fuelType": {
+            "type": "string",
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "hybrid"
+            ],
+            "description": "Fuel Type",
+            "example": "gasoline"
           }
         }
       }
