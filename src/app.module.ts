@@ -5,6 +5,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import mongoose from 'mongoose';
 
 import { AuthModule } from './auth/auth.module';
+import { BookingModule } from './booking/booking.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { envSchema } from './common/validations/env.validation';
 import { HealthController } from './health/health.controller';
@@ -52,6 +53,7 @@ import { VehicleTemplateModule } from './vehicle-template/vehicle-template.modul
     UploadModule,
     VehicleTemplateModule,
     VehicleModule,
+    BookingModule,
   ],
   controllers: [HealthController],
 })
