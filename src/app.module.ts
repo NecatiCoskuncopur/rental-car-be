@@ -11,6 +11,7 @@ import { HealthController } from './health/health.controller';
 import { PostModule } from './post/post.module';
 import { UploadModule } from './upload/upload.module';
 import { UserModule } from './user/user.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 import { VehicleTemplateModule } from './vehicle-template/vehicle-template.module';
 
 @Module({
@@ -50,6 +51,7 @@ import { VehicleTemplateModule } from './vehicle-template/vehicle-template.modul
     CloudinaryModule,
     UploadModule,
     VehicleTemplateModule,
+    VehicleModule,
   ],
   controllers: [HealthController],
 })
