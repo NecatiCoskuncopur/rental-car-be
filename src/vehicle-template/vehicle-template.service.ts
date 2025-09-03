@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
-import { Model } from 'mongoose';
+import { Model, PaginateModel } from 'mongoose';
 
 import { CreateVehicleTemplateDto } from 'src/common/dto/request/create-vehicle-template.dto';
 import { UpdateVehicleTemplateDto } from 'src/common/dto/request/update-vehicle-template.dto';
@@ -9,6 +9,7 @@ import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { VehicleTemplateResponseDto } from 'src/common/dto/response/vehicle-template-response.dto';
 import { deleteImageFromStorage } from 'src/common/utils/deleteImageFromStorage';
 import { pickAllowedKeys } from 'src/common/utils/pickAllowedKeys.util';
+import { VehicleDocument } from 'src/vehicle/vehicle.model';
 import {
   VehicleTemplate,
   VehicleTemplateDocument,
@@ -19,6 +20,8 @@ export class VehicleTemplateService {
   constructor(
     @InjectModel(VehicleTemplate.name)
     private readonly templateModel: Model<VehicleTemplateDocument>,
+    @InjectModel('Vehicle')
+    private readonly vehicleModel: PaginateModel<VehicleDocument>,
   ) {}
 
   //getVehicleTemplates Vehicle model sonrası
@@ -85,8 +88,7 @@ export class VehicleTemplateService {
     const template = await this.templateModel.findById(id);
     if (!template) throw new NotFoundException('Vehicle Template not found');
 
-    //Vehicle Sonrası
-    // await this.vehicleModel.deleteMany({ template: template._id });
+    await this.vehicleModel.deleteMany({ templateId: id });
     await this.templateModel.findByIdAndDelete(id);
 
     if (template.image) {

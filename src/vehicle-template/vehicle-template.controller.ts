@@ -25,7 +25,7 @@ export class VehicleTemplateController {
   ) {}
 
   @ApiRoles('guest')
-  @Get('getVehicle/:id')
+  @Get('getVehicleTemplate/:templateId')
   async getVehicleTemplateById(
     @Param('id') id: string,
   ): Promise<VehicleTemplateResponseDto> {
@@ -34,7 +34,7 @@ export class VehicleTemplateController {
 
   @ApiRoles('admin')
   @UseGuards(AuthGuard, AdminGuard)
-  @Post('createVehicle')
+  @Post('createVehicleTemplate')
   async createVehicleTemplate(
     @Body() body: CreateVehicleTemplateDto,
   ): Promise<VehicleTemplateResponseDto> {
@@ -43,20 +43,20 @@ export class VehicleTemplateController {
 
   @ApiRoles('admin')
   @UseGuards(AuthGuard, AdminGuard)
-  @Patch('updateVehicle/:vehicleId')
+  @Patch('updateVehicleTemplate/:templateId')
   async updateVehicleTemplate(
-    @Param('vehicleId') vehicleId: string,
+    @Param('templateId') templateId: string,
     @Body() body: UpdateVehicleTemplateDto,
   ): Promise<VehicleTemplateResponseDto> {
-    return this.vehicleTemplateService.updateVehicleTemplate(vehicleId, body);
+    return this.vehicleTemplateService.updateVehicleTemplate(templateId, body);
   }
 
   @ApiRoles('admin')
   @UseGuards(AuthGuard, AdminGuard)
-  @Delete('deleteVehicle/:vehicleId')
+  @Delete('deleteVehicleTemplate/:templateId')
   async deleteVehicleTemplate(
-    @Param('vehicleId') vehicleId: string,
+    @Param('templateId') templateId: string,
   ): Promise<DeleteResponseDto> {
-    return this.vehicleTemplateService.deleteVehicleTemplate(vehicleId);
+    return this.vehicleTemplateService.deleteVehicleTemplate(templateId);
   }
 }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { Vehicle, VehicleSchema } from 'src/vehicle/vehicle.model';
 import { VehicleTemplateController } from './vehicle-template.controller';
 import {
   VehicleTemplate,
@@ -13,6 +14,7 @@ import { VehicleTemplateService } from './vehicle-template.service';
     MongooseModule.forFeature([
       { name: VehicleTemplate.name, schema: VehicleTemplateSchema },
     ]),
+    MongooseModule.forFeature([{ name: Vehicle.name, schema: VehicleSchema }]),
   ],
   controllers: [VehicleTemplateController],
   providers: [VehicleTemplateService],

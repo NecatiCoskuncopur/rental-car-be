@@ -432,7 +432,7 @@
         ]
       }
     },
-    "/api/vehicle-template/getVehicle/{id}": {
+    "/api/vehicle-template/getVehicleTemplate/{templateId}": {
       "get": {
         "operationId": "VehicleTemplateController_getVehicleTemplateById",
         "parameters": [
@@ -456,7 +456,7 @@
         ]
       }
     },
-    "/api/vehicle-template/createVehicle": {
+    "/api/vehicle-template/createVehicleTemplate": {
       "post": {
         "operationId": "VehicleTemplateController_createVehicleTemplate",
         "parameters": [],
@@ -481,12 +481,12 @@
         ]
       }
     },
-    "/api/vehicle-template/updateVehicle/{vehicleId}": {
+    "/api/vehicle-template/updateVehicleTemplate/{templateId}": {
       "patch": {
         "operationId": "VehicleTemplateController_updateVehicleTemplate",
         "parameters": [
           {
-            "name": "vehicleId",
+            "name": "templateId",
             "required": true,
             "in": "path",
             "schema": {
@@ -515,12 +515,12 @@
         ]
       }
     },
-    "/api/vehicle-template/deleteVehicle/{vehicleId}": {
+    "/api/vehicle-template/deleteVehicleTemplate/{templateId}": {
       "delete": {
         "operationId": "VehicleTemplateController_deleteVehicleTemplate",
         "parameters": [
           {
-            "name": "vehicleId",
+            "name": "templateId",
             "required": true,
             "in": "path",
             "schema": {
