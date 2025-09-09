@@ -11,6 +11,7 @@ import { HealthController } from './health/health.controller';
 import { PostModule } from './post/post.module';
 import { UploadModule } from './upload/upload.module';
 import { UserModule } from './user/user.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { UserModule } from './user/user.module';
     PostModule,
     CloudinaryModule,
     UploadModule,
+    VehicleModule,
   ],
   controllers: [HealthController],
 })

@@ -431,6 +431,113 @@
           "Upload"
         ]
       }
+    },
+    "/api/vehicle/getVehicle/{vehicleId}": {
+      "get": {
+        "operationId": "VehicleController_getVehicleById",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Vehicle"
+        ]
+      }
+    },
+    "/api/vehicle/createVehicle": {
+      "post": {
+        "operationId": "VehicleController_createVehicle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVehicleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Vehicle"
+        ]
+      }
+    },
+    "/api/vehicle/updateVehicle/{vehicleId}": {
+      "patch": {
+        "operationId": "VehicleController_updateVehicle",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateVehicleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Vehicle"
+        ]
+      }
+    },
+    "/api/vehicle/deleteVehicle/{vehicleId}": {
+      "delete": {
+        "operationId": "VehicleController_deleteVehicle",
+        "parameters": [
+          {
+            "name": "vehicleId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Vehicle"
+        ]
+      }
     }
   },
   "info": {
@@ -703,6 +810,196 @@
             "type": "string",
             "description": "Post image url",
             "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          }
+        }
+      },
+      "CreateVehicleDto": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Vehicle Brand",
+            "examples": [
+              "Renault",
+              "Mercedes"
+            ]
+          },
+          "model": {
+            "type": "string",
+            "description": "Vehicle Model",
+            "examples": [
+              "Kadjar",
+              "C180"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "description": "Vehicle image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          },
+          "price": {
+            "type": "number",
+            "description": "Vehicle Price",
+            "example": "200"
+          },
+          "vehicleType": {
+            "type": "string",
+            "enum": [
+              "sedan",
+              "suv",
+              "hatchback",
+              "station vagon",
+              "mpv"
+            ],
+            "description": "Vehicle Type",
+            "example": "suv"
+          },
+          "doors": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 5,
+            "description": "Vehicle Doors",
+            "example": 4
+          },
+          "passengers": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 12,
+            "description": "Passenger",
+            "example": 5
+          },
+          "transmissionType": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ],
+            "description": "Transmission Type",
+            "example": "manual"
+          },
+          "fuelType": {
+            "type": "string",
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "hybrid"
+            ],
+            "description": "Fuel Type",
+            "example": "gasoline"
+          },
+          "plateNumbers": {
+            "description": "An array of plate numbers to be added to the vehicle model.",
+            "example": [
+              "34 ABC 123",
+              "34 DEF 456",
+              "34 GHI 789"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "brand",
+          "model",
+          "image",
+          "price",
+          "vehicleType",
+          "doors",
+          "passengers",
+          "transmissionType",
+          "fuelType",
+          "plateNumbers"
+        ]
+      },
+      "UpdateVehicleDto": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Vehicle Brand",
+            "examples": [
+              "Renault",
+              "Mercedes"
+            ]
+          },
+          "model": {
+            "type": "string",
+            "description": "Vehicle Model",
+            "examples": [
+              "Kadjar",
+              "C180"
+            ]
+          },
+          "price": {
+            "type": "number",
+            "description": "Vehicle Price",
+            "example": "200"
+          },
+          "image": {
+            "type": "string",
+            "description": "Vehicle image url",
+            "example": "https://firebasestorage.googleapis.com/exampleImage.jpg"
+          },
+          "vehicleType": {
+            "type": "string",
+            "enum": [
+              "sedan",
+              "suv",
+              "hatchback",
+              "station vagon",
+              "mpv"
+            ],
+            "description": "Vehicle Type",
+            "example": "suv"
+          },
+          "doors": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 5,
+            "description": "Vehicle Doors",
+            "example": 4
+          },
+          "passengers": {
+            "type": "number",
+            "minimum": 2,
+            "maximum": 12,
+            "description": "Passenger",
+            "example": 5
+          },
+          "transmissionType": {
+            "type": "string",
+            "enum": [
+              "automatic",
+              "manual"
+            ],
+            "description": "Transmission Type",
+            "example": "automatic"
+          },
+          "fuelType": {
+            "type": "string",
+            "enum": [
+              "gasoline",
+              "diesel",
+              "electric",
+              "hybrid"
+            ],
+            "description": "Fuel Type",
+            "example": "gasoline"
+          },
+          "plateNumbers": {
+            "description": "An array of plate numbers to be added to the vehicle model.",
+            "example": [
+              "34 ABC 123",
+              "34 DEF 456",
+              "34 GHI 789"
+            ],
+            "items": {
+              "type": "array"
+            },
+            "type": "array"
           }
         }
       }
