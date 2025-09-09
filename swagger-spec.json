@@ -538,6 +538,130 @@
           "Vehicle"
         ]
       }
+    },
+    "/api/booking/getBookings": {
+      "get": {
+        "operationId": "BookingController_getBookings",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "schema": {
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Order direction: ascending  (asc) veya descending (desc)",
+            "schema": {
+              "example": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "description": "Booking status filter",
+            "schema": {
+              "example": "pending",
+              "type": "string",
+              "enum": [
+                "pending",
+                "confirmed",
+                "cancelled"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Booking"
+        ]
+      }
+    },
+    "/api/booking/createBooking": {
+      "post": {
+        "operationId": "BookingController_createBooking",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBookingDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "Booking"
+        ]
+      }
+    },
+    "/api/booking/updateBooking/{bookingId}": {
+      "patch": {
+        "operationId": "BookingController_updateBooking",
+        "parameters": [
+          {
+            "name": "bookingId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookingStatusDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER - ADMIN",
+        "tags": [
+          "Booking"
+        ]
+      }
     }
   },
   "info": {
@@ -1002,6 +1126,47 @@
             "type": "array"
           }
         }
+      },
+      "CreateBookingDto": {
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "string",
+            "description": "Vehicle id"
+          },
+          "startDate": {
+            "type": "string",
+            "description": "Booking start date",
+            "example": "2025-07-29"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Booking end date",
+            "example": "2025-07-30"
+          }
+        },
+        "required": [
+          "vehicleId",
+          "startDate",
+          "endDate"
+        ]
+      },
+      "UpdateBookingStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "cancelled"
+            ],
+            "description": "Reservation status: can only be \"confirmed\" or \"cancelled\".",
+            "example": "confirmed"
+          }
+        },
+        "required": [
+          "status"
+        ]
       }
     }
   }
