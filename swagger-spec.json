@@ -432,6 +432,149 @@
         ]
       }
     },
+    "/api/vehicle/getVehicles": {
+      "get": {
+        "operationId": "VehicleController_getVehicles",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "schema": {
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Order direction: ascending  (asc) veya descending (desc)",
+            "schema": {
+              "example": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "sortBy",
+            "required": false,
+            "in": "query",
+            "description": "Order by",
+            "schema": {
+              "example": "price",
+              "type": "string",
+              "enum": [
+                "price",
+                "createdAt"
+              ]
+            }
+          },
+          {
+            "name": "startDate",
+            "required": false,
+            "in": "query",
+            "description": "Start Date",
+            "schema": {
+              "example": "2025-07-29",
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "required": false,
+            "in": "query",
+            "description": "End Date",
+            "schema": {
+              "example": "2025-07-30",
+              "type": "string"
+            }
+          },
+          {
+            "name": "vehicleType",
+            "required": false,
+            "in": "query",
+            "description": "Vehicle Type",
+            "schema": {
+              "example": "suv",
+              "type": "string",
+              "enum": [
+                "sedan",
+                "suv",
+                "hatchback",
+                "station vagon",
+                "mpv"
+              ]
+            }
+          },
+          {
+            "name": "fuelType",
+            "required": false,
+            "in": "query",
+            "description": "Fuel Type",
+            "schema": {
+              "example": "diesel",
+              "type": "string",
+              "enum": [
+                "gasoline",
+                "diesel",
+                "electric",
+                "hybrid"
+              ]
+            }
+          },
+          {
+            "name": "transmissionType",
+            "required": false,
+            "in": "query",
+            "description": "Transmission Type",
+            "schema": {
+              "example": "automatic",
+              "type": "string",
+              "enum": [
+                "automatic",
+                "manual"
+              ]
+            }
+          },
+          {
+            "name": "passengers",
+            "required": false,
+            "in": "query",
+            "description": "Passenger",
+            "schema": {
+              "minimum": 2,
+              "maximum": 12,
+              "example": "5",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "GUEST",
+        "tags": [
+          "Vehicle"
+        ]
+      }
+    },
     "/api/vehicle/getVehicle/{vehicleId}": {
       "get": {
         "operationId": "VehicleController_getVehicleById",
@@ -976,7 +1119,7 @@
               "mpv"
             ],
             "description": "Vehicle Type",
-            "example": "suv"
+            "example": "hatchback"
           },
           "doors": {
             "type": "number",
@@ -1010,7 +1153,7 @@
               "hybrid"
             ],
             "description": "Fuel Type",
-            "example": "gasoline"
+            "example": "hybrid"
           },
           "plateNumbers": {
             "description": "An array of plate numbers to be added to the vehicle model.",
@@ -1077,7 +1220,7 @@
               "mpv"
             ],
             "description": "Vehicle Type",
-            "example": "suv"
+            "example": "sedan"
           },
           "doors": {
             "type": "number",
@@ -1111,7 +1254,7 @@
               "hybrid"
             ],
             "description": "Fuel Type",
-            "example": "gasoline"
+            "example": "electric"
           },
           "plateNumbers": {
             "description": "An array of plate numbers to be added to the vehicle model.",

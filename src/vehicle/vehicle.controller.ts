@@ -6,14 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
 import { ApiRoles } from 'src/common/decorators/api-role.decorator';
 import { CreateVehicleDto } from 'src/common/dto/request/create-vehicle.dto';
 import { UpdateVehicleDto } from 'src/common/dto/request/update-vehicle-dto';
+import { VehicleQueryDto } from 'src/common/dto/request/vehicle-query.dto';
 import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { VehicleResponseDto } from 'src/common/dto/response/vehicle-response.dto';
+import { VehiclesResponseDto } from 'src/common/dto/response/vehicles-response.dto';
 import { AdminGuard } from 'src/common/guards/admin.guard';
 import { AuthGuard } from 'src/common/guards/auth.guard';
 import { VehicleService } from './vehicle.service';
@@ -21,6 +24,12 @@ import { VehicleService } from './vehicle.service';
 @Controller('vehicle')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}
+
+  @ApiRoles('guest')
+  @Get('getVehicles')
+  getVehicles(@Query() query: VehicleQueryDto): Promise<VehiclesResponseDto> {
+    return this.vehicleService.getVehicles(query);
+  }
 
   @ApiRoles('guest')
   @Get('getVehicle/:vehicleId')

@@ -10,6 +10,10 @@ import {
   Matches,
 } from 'class-validator';
 
+import { FuelType } from 'src/common/enums/fuel-type.enum';
+import { TransmissionType } from 'src/common/enums/transmission-type.enum';
+import { VehicleType } from 'src/common/enums/vehicle-type.enum';
+
 export class CreateVehicleDto {
   @ApiProperty({
     description: 'Vehicle Brand',
@@ -51,13 +55,13 @@ export class CreateVehicleDto {
   price: number;
 
   @ApiProperty({
-    enum: ['sedan', 'suv', 'hatchback', 'station vagon', 'mpv'],
+    enum: VehicleType,
     description: 'Vehicle Type',
-    example: 'suv',
+    example: VehicleType.Hatchback,
   })
   @IsNotEmpty()
-  @IsEnum(['sedan', 'suv', 'hatchback', 'station vagon', 'mpv'])
-  vehicleType: string;
+  @IsEnum(VehicleType)
+  vehicleType: VehicleType;
 
   @ApiProperty({
     type: Number,
@@ -82,22 +86,22 @@ export class CreateVehicleDto {
   passengers: number;
 
   @ApiProperty({
-    enum: ['automatic', 'manual'],
+    enum: TransmissionType,
     description: 'Transmission Type',
-    example: 'manual',
+    example: TransmissionType.Manual,
   })
   @IsNotEmpty()
-  @IsEnum(['automatic', 'manual'])
-  transmissionType: string;
+  @IsEnum(TransmissionType)
+  transmissionType: TransmissionType;
 
   @ApiProperty({
-    enum: ['gasoline', 'diesel', 'electric', 'hybrid'],
+    enum: FuelType,
     description: 'Fuel Type',
-    example: 'gasoline',
+    example: FuelType.Hybrid,
   })
   @IsNotEmpty()
-  @IsEnum(['gasoline', 'diesel', 'electric', 'hybrid'])
-  fuelType: string;
+  @IsEnum(FuelType)
+  fuelType: FuelType;
 
   @ApiProperty({
     type: [String],

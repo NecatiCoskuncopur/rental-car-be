@@ -12,10 +12,9 @@ import {
   Min,
 } from 'class-validator';
 
-export enum TransmissionType {
-  Automatic = 'automatic',
-  Manual = 'manual',
-}
+import { FuelType } from 'src/common/enums/fuel-type.enum';
+import { TransmissionType } from 'src/common/enums/transmission-type.enum';
+import { VehicleType } from 'src/common/enums/vehicle-type.enum';
 
 export class UpdateVehicleDto {
   @ApiPropertyOptional({
@@ -57,13 +56,13 @@ export class UpdateVehicleDto {
   image?: string;
 
   @ApiPropertyOptional({
-    enum: ['sedan', 'suv', 'hatchback', 'station vagon', 'mpv'],
+    enum: VehicleType,
     description: 'Vehicle Type',
-    example: 'suv',
+    example: VehicleType.Sedan,
   })
   @IsOptional()
-  @IsEnum(['sedan', 'suv', 'hatchback', 'station vagon', 'mpv'])
-  vehicleType?: string;
+  @IsEnum(VehicleType)
+  vehicleType?: VehicleType;
 
   @ApiPropertyOptional({
     type: Number,
@@ -101,13 +100,13 @@ export class UpdateVehicleDto {
   transmissionType?: TransmissionType;
 
   @ApiPropertyOptional({
-    enum: ['gasoline', 'diesel', 'electric', 'hybrid'],
+    enum: FuelType,
     description: 'Fuel Type',
-    example: 'gasoline',
+    example: FuelType.Electric,
   })
   @IsOptional()
-  @IsEnum(['gasoline', 'diesel', 'electric', 'hybrid'])
-  fuelType?: string;
+  @IsEnum(FuelType)
+  fuelType?: FuelType;
 
   @ApiPropertyOptional({
     type: [String],
