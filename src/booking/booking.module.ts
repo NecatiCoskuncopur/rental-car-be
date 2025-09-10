@@ -5,6 +5,7 @@ import { Vehicle, VehicleSchema } from 'src/vehicle/vehicle.model';
 import { BookingController } from './booking.controller';
 import { Booking, BookingSchema } from './booking.model';
 import { BookingService } from './booking.service';
+import { BookingCronService } from './tasks/booking-cron.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { BookingService } from './booking.service';
     MongooseModule.forFeature([{ name: Vehicle.name, schema: VehicleSchema }]),
   ],
   controllers: [BookingController],
-  providers: [BookingService],
+  providers: [BookingService, BookingCronService],
 })
 export class BookingModule {}
