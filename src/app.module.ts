@@ -10,6 +10,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { envSchema } from './common/validations/env.validation';
 import { HealthController } from './health/health.controller';
 import { PostModule } from './post/post.module';
+import { SummaryModule } from './summary/summary.module';
 import { UploadModule } from './upload/upload.module';
 import { UserModule } from './user/user.module';
 import { VehicleModule } from './vehicle/vehicle.module';
@@ -52,6 +53,7 @@ import { VehicleModule } from './vehicle/vehicle.module';
     UploadModule,
     VehicleModule,
     BookingModule,
+    SummaryModule,
   ],
   controllers: [HealthController],
 })

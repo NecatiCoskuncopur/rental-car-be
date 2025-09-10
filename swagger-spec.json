@@ -805,6 +805,113 @@
           "Booking"
         ]
       }
+    },
+    "/api/summary/montlyIncome": {
+      "get": {
+        "operationId": "SummaryController_getMonthlyIncome",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
+    },
+    "/api/summary/yearlyIncome": {
+      "get": {
+        "operationId": "SummaryController_getYearlyIncome",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
+    },
+    "/api/summary/topUsers": {
+      "get": {
+        "operationId": "SummaryController_getTopUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
+    },
+    "/api/summary/vehicleAvailability": {
+      "get": {
+        "operationId": "SummaryController_vehicleAvailability",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
+    },
+    "/api/summary/mostBookedVehicle": {
+      "get": {
+        "operationId": "SummaryController_getMostBookedVehicle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
+    },
+    "/api/summary/newUsers": {
+      "get": {
+        "operationId": "SummaryController_getNewUserStats",
+        "parameters": [
+          {
+            "name": "range",
+            "required": false,
+            "in": "query",
+            "description": "New user range",
+            "schema": {
+              "example": "day",
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "ADMIN",
+        "tags": [
+          "Summary"
+        ]
+      }
     }
   },
   "info": {
