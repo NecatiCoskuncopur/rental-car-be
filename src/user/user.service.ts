@@ -12,11 +12,11 @@ import { PaginateModel } from 'mongoose';
 import { BookingDocument } from 'src/booking/booking.model';
 import { PaginateQueryDto } from 'src/common/dto/request/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/request/user-update.dto';
-import { BookingsResponseDto } from 'src/common/dto/response/bookings-response.dto';
 import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { UserResponseDto } from 'src/common/dto/response/user-response.dto';
 import { UsersResponseDataDto } from 'src/common/dto/response/users-response.dto';
 import { pickAllowedKeys } from 'src/common/utils/pickAllowedKeys.util';
+import { UserBookingsResponseDto } from './../common/dto/response/user-bookings-response.dto';
 import { UserDocument } from './user.model';
 
 @Injectable()
@@ -76,7 +76,7 @@ export class UserService {
   async getUserBookings(
     query: PaginateQueryDto,
     userId: string,
-  ): Promise<BookingsResponseDto> {
+  ): Promise<UserBookingsResponseDto> {
     const { page = 1, limit = 10, order = 'desc' } = query;
 
     const queryConditions = { userId };
@@ -90,6 +90,7 @@ export class UserService {
       page: Number(page),
       limit: Number(limit),
       sort: { updatedAt: order === 'asc' ? 1 : -1 },
+      populate: ['vehicleId'],
       lean: true,
       customLabels: {
         totalDocs: 'totalBookings',
@@ -107,7 +108,7 @@ export class UserService {
 
     const result = await this.bookingModel.paginate(queryConditions, options);
 
-    const bookingsDto = plainToInstance(BookingsResponseDto, {
+    const bookingsDto = plainToInstance(UserBookingsResponseDto, {
       bookings: result.bookings,
       pagination: {
         perPage: result.perPage,
