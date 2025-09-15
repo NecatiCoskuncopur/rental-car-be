@@ -49,6 +49,10 @@ export class VehicleResponseDto {
 
   @Expose()
   @ApiProperty()
+  isAvailable: boolean;
+
+  @Expose()
+  @ApiProperty()
   createdAt: Date;
 
   @Expose()

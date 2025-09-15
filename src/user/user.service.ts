@@ -9,8 +9,10 @@ import * as bcryptjs from 'bcryptjs';
 import { plainToInstance } from 'class-transformer';
 import { PaginateModel } from 'mongoose';
 
+import { BookingDocument } from 'src/booking/booking.model';
 import { PaginateQueryDto } from 'src/common/dto/request/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/request/user-update.dto';
+import { BookingsResponseDto } from 'src/common/dto/response/bookings-response.dto';
 import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { UserResponseDto } from 'src/common/dto/response/user-response.dto';
 import { UsersResponseDataDto } from 'src/common/dto/response/users-response.dto';
@@ -22,6 +24,9 @@ export class UserService {
   constructor(
     @InjectModel('User')
     private readonly userModel: PaginateModel<UserDocument>,
+
+    @InjectModel('Booking')
+    private readonly bookingModel: PaginateModel<BookingDocument>,
   ) {}
 
   async getUsers(query: PaginateQueryDto): Promise<UsersResponseDataDto> {
@@ -66,6 +71,58 @@ export class UserService {
     });
 
     return usersDto;
+  }
+
+  async getUserBookings(
+    query: PaginateQueryDto,
+    userId: string,
+  ): Promise<BookingsResponseDto> {
+    const { page = 1, limit = 10, order = 'desc' } = query;
+
+    const queryConditions = { userId };
+
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const options = {
+      page: Number(page),
+      limit: Number(limit),
+      sort: { updatedAt: order === 'asc' ? 1 : -1 },
+      lean: true,
+      customLabels: {
+        totalDocs: 'totalBookings',
+        docs: 'bookings',
+        limit: 'perPage',
+        page: 'currentPage',
+        totalPages: 'totalPages',
+        nextPage: 'next',
+        prevPage: 'prev',
+        pagingCounter: 'pageStartIndex',
+        hasPrevPage: 'hasPrev',
+        hasNextPage: 'hasNext',
+      },
+    };
+
+    const result = await this.bookingModel.paginate(queryConditions, options);
+
+    const bookingsDto = plainToInstance(BookingsResponseDto, {
+      bookings: result.bookings,
+      pagination: {
+        perPage: result.perPage,
+        totalPages: result.totalPages,
+        currentPage: result.currentPage,
+        pageStartIndex: result.pageStartIndex,
+        hasPrev: result.hasPrev,
+        hasNext: result.hasNext,
+        prev: result.prev,
+        next: result.next,
+      },
+      totalBookings: result.totalBookings,
+    });
+
+    return bookingsDto;
   }
 
   async updateUser(

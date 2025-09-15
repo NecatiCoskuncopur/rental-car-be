@@ -125,7 +125,7 @@ export class VehicleService {
     );
 
     const vehiclesDto = plainToInstance(VehiclesResponseDto, {
-      vehicle: result.vehicles,
+      vehicles: result.vehicles,
       pagination: {
         perPage: result.perPage,
         totalPages: result.totalPages,

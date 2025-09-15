@@ -73,6 +73,56 @@
         ]
       }
     },
+    "/api/user/getUserBookings": {
+      "get": {
+        "operationId": "UserController_getUserBookings",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page Number",
+            "schema": {
+              "example": 2,
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "order",
+            "required": false,
+            "in": "query",
+            "description": "Order direction: ascending  (asc) veya descending (desc)",
+            "schema": {
+              "example": "asc",
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "USER",
+        "tags": [
+          "User"
+        ]
+      }
+    },
     "/api/user/updateUser/{userId}": {
       "patch": {
         "operationId": "UserController_updateUser",

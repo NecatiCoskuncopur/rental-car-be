@@ -15,6 +15,7 @@ import { Request } from 'express';
 import { ApiRoles } from 'src/common/decorators/api-role.decorator';
 import { PaginateQueryDto } from 'src/common/dto/request/paginate-query.dto';
 import { UpdateUserDto } from 'src/common/dto/request/user-update.dto';
+import { BookingsResponseDto } from 'src/common/dto/response/bookings-response.dto';
 import { DeleteResponseDto } from 'src/common/dto/response/delete-response.dto';
 import { UserResponseDto } from 'src/common/dto/response/user-response.dto';
 import { UsersResponseDataDto } from 'src/common/dto/response/users-response.dto';
@@ -38,6 +39,16 @@ export class UserController {
     @Query() query: PaginateQueryDto,
   ): Promise<UsersResponseDataDto> {
     return this.userService.getUsers(query);
+  }
+
+  @ApiRoles('user')
+  @Get('getUserBookings')
+  getUserBookings(
+    @Query() query: PaginateQueryDto,
+    @Req() req: Request,
+  ): Promise<BookingsResponseDto> {
+    const id = req.user?.sub;
+    return this.userService.getUserBookings(query, id!);
   }
 
   @ApiRoles('user')
