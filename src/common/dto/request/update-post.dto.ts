@@ -13,8 +13,9 @@ export class UpdatePostDto {
   @ApiPropertyOptional({ description: 'Post content' })
   @IsOptional()
   @IsString()
-  @Matches(/^[A-Za-zÇçĞğİıÖöŞşÜü0-9\s]+$/, {
-    message: 'Content can only contain letters, numbers and spaces.',
+  @Matches(/^[A-Za-zÇçĞğİıÖöŞşÜü0-9\s<>/="'-]*$/, {
+    message:
+      'Content can only contain letters, numbers, spaces and basic HTML tags.',
   })
   content?: string;
 

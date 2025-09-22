@@ -5,6 +5,10 @@ import { Exclude, Expose } from 'class-transformer';
 export class TopUserResponseDto {
   @Expose()
   @ApiProperty()
+  _id: string;
+
+  @Expose()
+  @ApiProperty()
   userId: string;
 
   @Expose()
