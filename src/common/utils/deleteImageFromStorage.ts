@@ -27,6 +27,10 @@ export const deleteImageFromStorage = async (
   try {
     if (!imageUrl) return;
 
+    if (!imageUrl.includes('res.cloudinary.com')) {
+      return;
+    }
+
     const urlParts = imageUrl.split('/upload/')[1];
     if (!urlParts) throw new Error('Invalid Cloudinary URL');
 
