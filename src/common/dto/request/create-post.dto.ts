@@ -13,10 +13,6 @@ export class CreatePostDto {
   @ApiProperty({ description: 'Post content' })
   @IsString()
   @IsNotEmpty()
-  @Matches(/^[A-Za-zÇçĞğİıÖöŞşÜü0-9\s<>/="'-]*$/, {
-    message:
-      'Content can only contain letters, numbers, spaces and basic HTML tags.',
-  })
   content: string;
 
   @ApiProperty({

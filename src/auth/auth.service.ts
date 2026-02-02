@@ -72,8 +72,9 @@ export class AuthService {
     res.cookie('access_token', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
       path: '/',
+      domain: '.necaticoskuncopur.com'
     });
 
     const { password: _, __v, ...userWithoutPassword } = user;
@@ -88,8 +89,9 @@ export class AuthService {
     res.clearCookie('access_token', {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: 'lax',
       path: '/',
+      domain: '.necaticoskuncopur.com'
     });
 
     return { message: 'User has been signed out' };

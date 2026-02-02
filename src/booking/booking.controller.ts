@@ -58,6 +58,7 @@ export class BookingController {
       maxAge: 1000 * 60 * 1,
       sameSite: 'lax',
       path: '/',
+      domain: '.necaticoskuncopur.com'
     });
 
     return savedBooking;
